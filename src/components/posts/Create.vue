@@ -67,7 +67,7 @@ export default {
       if (this.post.title && this.post.content) {
         console.log(this.post);
         axios
-          .post("http://vue.test/rest/api/post", this.post)
+          .post(process.env.VUE_APP_ROOT + "rest/api/post", this.post)
           .then(() => {
             this.$router.push({
               name: "posts",

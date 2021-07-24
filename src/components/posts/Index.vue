@@ -51,8 +51,15 @@
 
 
 <script>
+import qs from "qs";
 import axios from "axios";
-
+const params = new URLSearchParams();
+params.append("id", 123);
+const config = {
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+};
 export default {
   data() {
     return {
@@ -60,14 +67,22 @@ export default {
     };
   },
   created() {
-    axios.get("http://vue.test/rest/api/post").then((response) => {
+    axios.get(process.env.VUE_APP_ROOT + "rest/api/post").then((response) => {
       this.posts = response.data.data;
     });
   },
   methods: {
     PostDelete(id, index) {
       axios
-        .delete(`http://vue.test/rest/api/post/${id}`)
+        .delete(
+          process.env.VUE_APP_ROOT + `rest/api/post`,
+          {
+            data: qs.stringify({
+              id: id,
+            }),
+          },
+          config
+        )
         .then((response) => {
           this.posts.splice(index, 1);
           console.log(response);

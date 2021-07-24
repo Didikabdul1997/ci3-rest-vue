@@ -36,7 +36,7 @@ const router = new VueRouter({
       component: PostEdit
     }
   ],
-  mode: 'history'
+  mode: 'history',
 })
 
 new Vue({

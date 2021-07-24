@@ -65,7 +65,11 @@ export default {
   },
   created() {
     axios
-      .get(`http://vue.test/rest/api/post?id=${this.$route.params.id}`)
+      .get(process.env.VUE_APP_ROOT + `rest/api/post`, {
+        params: {
+          id: this.$route.params.id,
+        },
+      })
       .then((response) => {
         this.post = response.data.data;
       });
@@ -75,7 +79,7 @@ export default {
       if (this.post.title && this.post.content) {
         axios
           .put(
-            `http://vue.test/rest/api/post/${this.$route.params.id}`,
+            process.env.VUE_APP_ROOT + `rest/api/post/${this.$route.params.id}`,
             this.post
           )
           .then((response) => {
